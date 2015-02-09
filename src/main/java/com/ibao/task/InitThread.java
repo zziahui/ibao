@@ -52,6 +52,7 @@ public class InitThread extends Thread{
 						JSONObject jsonObject = new JSONObject(video);
 						jsonObject.put("code", task.getStyle().getCode());
 						jsonObject.put("task", task.getId());
+						jsonObject.put("vv", map.get("vv"));
 						this.mq.sendMessage(jsonObject.toString());
 					}
 				}
