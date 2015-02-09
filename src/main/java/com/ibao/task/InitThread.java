@@ -10,8 +10,11 @@ import org.json.JSONObject;
 import com.ibao.base.util.MyConstant;
 import com.ibao.base.util.VideoUtil;
 import com.ibao.model.Task;
+import com.ibao.model.User;
+import com.ibao.model.Video;
 import com.ibao.rabbitmq.RabbitMq;
 import com.ibao.service.base.TaskService;
+import com.ibao.service.base.VideoService;
 
 public class InitThread extends Thread{
 	
@@ -21,11 +24,14 @@ public class InitThread extends Thread{
 	
 	private RabbitMq mq;
 	
+	private VideoService videoService;
+	
 	private CountDownLatch countDownLatch = new CountDownLatch(1);
 	
-	public InitThread(RabbitMq mq, TaskService taskService){
+	public InitThread(RabbitMq mq, TaskService taskService, VideoService videoService){
 		this.mq = mq;
 		this.taskService = taskService;
+		this.videoService = videoService;
 	}
 
 	@Override
@@ -41,7 +47,13 @@ public class InitThread extends Thread{
 						MyConstant.endTasks.add(task);
 					}
 				}else{
-					//this.mq.sendMessage(JSONObject.wrap(task).toString());
+					Video video = videoService.selectByUrl(task.getUrl());
+					if(null != video){
+						JSONObject jsonObject = new JSONObject(video);
+						jsonObject.put("code", task.getStyle().getCode());
+						jsonObject.put("task", task.getId());
+						this.mq.sendMessage(jsonObject.toString());
+					}
 				}
 			}
 			for(Task task : MyConstant.endTasks){
@@ -60,5 +72,13 @@ public class InitThread extends Thread{
 
 	public CountDownLatch getCountDownLatch() {
 		return countDownLatch;
+	}
+	
+	public static void main(String[] args) {
+		User user = new User();
+		user.setUsername("hello");
+		JSONObject jsonObject = new JSONObject(user);
+		jsonObject.put("code", "111");
+		System.out.println(jsonObject);
 	}
 }
