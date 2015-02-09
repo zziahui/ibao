@@ -22,7 +22,14 @@ public final class MyConstant {
 	public final static List<String> phones = new ArrayList<>();
 	public final static List<String> versions = new ArrayList<>();
 	
-	public final static String ip = "115.193.227.221";
+	public final static String MQ_IP = "192.168.1.11";
+	public final static int MQ_PORT = 5672;
+	public final static String MQ_USERNAME = "ibao";
+	public final static String MQ_PASSWORD = "yanghui123";
+	
+	
+	
+	
 	
 	
 

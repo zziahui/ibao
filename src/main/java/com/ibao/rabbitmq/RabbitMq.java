@@ -2,6 +2,7 @@ package com.ibao.rabbitmq;
 
 import java.io.IOException;
 
+import com.ibao.base.util.MyConstant;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -15,10 +16,11 @@ public class RabbitMq {
 	public RabbitMq(String EXCHANGE_NAME) {
 		this.EXCHANGE_NAME = EXCHANGE_NAME;
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost("192.168.1.11");
-		factory.setPort(5672);
-		factory.setUsername("guest");
-		factory.setPassword("guest");
+//		factory.setHost("localhost");
+		factory.setHost(MyConstant.MQ_IP);
+		factory.setPort(MyConstant.MQ_PORT);
+		factory.setUsername(MyConstant.MQ_USERNAME);
+		factory.setPassword(MyConstant.MQ_PASSWORD);
 		try {
 			this.connection = factory.newConnection();
 			this.channel = connection.createChannel();
@@ -40,7 +42,6 @@ public class RabbitMq {
      public void sendMessage(String json){
     	 try {
 			this.channel.basicPublish(getEXCHANGE_NAME(), "", null, json.getBytes());
-			close();
     	 } catch (IOException e) {
 			e.printStackTrace();
 		}
