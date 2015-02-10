@@ -16,11 +16,11 @@ public class RabbitMq {
 	public RabbitMq(String EXCHANGE_NAME) {
 		this.EXCHANGE_NAME = EXCHANGE_NAME;
 		ConnectionFactory factory = new ConnectionFactory();
-//		factory.setHost("localhost");
-		factory.setHost(MyConstant.MQ_IP);
-		factory.setPort(MyConstant.MQ_PORT);
-		factory.setUsername(MyConstant.MQ_USERNAME);
-		factory.setPassword(MyConstant.MQ_PASSWORD);
+		factory.setHost("localhost");
+//		factory.setHost(MyConstant.MQ_IP);
+//		factory.setPort(MyConstant.MQ_PORT);
+//		factory.setUsername(MyConstant.MQ_USERNAME);
+//		factory.setPassword(MyConstant.MQ_PASSWORD);
 		try {
 			this.connection = factory.newConnection();
 			this.channel = connection.createChannel();
