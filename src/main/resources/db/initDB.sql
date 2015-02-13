@@ -78,6 +78,7 @@ CREATE TABLE `task` (
   `url` varchar(128) NOT NULL,
   `user` int(11) NOT NULL,
   `code` varchar(128) NOT NULL,
+  `server` varchar(128) NOT NULL,
   `total` int(11) NOT NULL,
   `begin` int(11) NOT NULL,
   `end` int(11) NOT NULL,
@@ -119,4 +120,25 @@ CREATE TABLE `video` (
   `showId` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `foreign_key_url` (`url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `intask`;
+CREATE TABLE `intask` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `task` int(11) DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `videoId` varchar(255) DEFAULT NULL,
+  `videoId2` varchar(255) DEFAULT NULL,
+  `playmode` int(11) DEFAULT NULL,
+  `catId` int(11) DEFAULT NULL,
+  `showId` int(11) DEFAULT NULL,
+  `server` varchar(255) DEFAULT NULL,
+  `flag` tinyint(3) DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `begin` int(11) NOT NULL,
+  `end` int(11) NOT NULL,
+  PRIMARY KEY (`Id`),
+   UNIQUE KEY `foreign_key_task` (`task`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -56,6 +56,9 @@ public class Task implements Serializable{
 	
 	@Column(name="addTime")
 	private Date addTime;
+	
+	@Column(name="server")
+	private String server;
 
 	public Integer getId() {
 		return id;
@@ -143,6 +146,14 @@ public class Task implements Serializable{
 
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
+	}
+
+	public String getServer() {
+		return server;
+	}
+
+	public void setServer(String server) {
+		this.server = server;
 	}
 }
 

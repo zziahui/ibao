@@ -24,6 +24,7 @@ public class RabbitMq {
 		try {
 			this.connection = factory.newConnection();
 			this.channel = connection.createChannel();
+			this.channel.exchangeDeclare(EXCHANGE_NAME, "direct");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

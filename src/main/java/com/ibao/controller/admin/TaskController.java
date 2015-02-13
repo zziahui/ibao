@@ -19,12 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ibao.base.util.VideoUtil;
 import com.ibao.model.Account;
 import com.ibao.model.Code;
+import com.ibao.model.InTask;
 import com.ibao.model.Style;
 import com.ibao.model.Task;
 import com.ibao.model.User;
 import com.ibao.model.Video;
 import com.ibao.service.base.AccountService;
 import com.ibao.service.base.CodeService;
+import com.ibao.service.base.InTaskService;
 import com.ibao.service.base.StyleService;
 import com.ibao.service.base.TaskService;
 import com.ibao.service.base.UserService;
@@ -47,6 +49,9 @@ public class TaskController {
 	
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private InTaskService inTaskService;
 	
 	@Autowired
 	private VideoService videoService;
@@ -91,6 +96,7 @@ public class TaskController {
 		String end = request.getParameter("end");
 		String num = request.getParameter("num");
 		String url = request.getParameter("url");
+		String server = request.getParameter("server");
 		
 		if(StringUtils.isBlank(code)){
 			modelMap.addAttribute("error", "任务类型不能为空");
@@ -126,6 +132,7 @@ public class TaskController {
 		task.setStyle(styleService.selectStyleByCode(code));
 		task.setState(0);
 		task.setAddTime(new Date());
+		task.setServer(server);
 		taskService.create(task);
 		modelMap.addAttribute("success", true);
 		return modelMap;
@@ -168,6 +175,24 @@ public class TaskController {
 			video.setShowId((Integer) map.get("showId"));
 			video.setCatId((Integer) map.get("catId"));
 			videoService.create(video);
+			
+			
+			InTask intask = new InTask();
+			intask.setCode(task.getStyle().getCode());
+			intask.setTask(task.getId());
+			intask.setUrl(task.getUrl());
+			intask.setBegin(task.getBegin());
+			intask.setEnd(task.getEnd());
+			intask.setCatId(video.getCatId());
+			intask.setPlaymode(video.getPlaymode());
+			intask.setShowId(video.getShowId());
+			intask.setVideoId(video.getVideoId());
+			intask.setVideoId2(video.getVideoId2());
+			intask.setServer(task.getServer());
+			intask.setState(1);
+			inTaskService.saveInTask(intask);
+			
+			
 			modelMap.addAttribute("success", true);
 		}else{
 			modelMap.addAttribute("error", "系统错误");

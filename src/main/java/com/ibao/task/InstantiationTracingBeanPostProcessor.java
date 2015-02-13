@@ -26,18 +26,17 @@ public class InstantiationTracingBeanPostProcessor implements ApplicationListene
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if(event.getApplicationContext().getParent() == null){//root application context 没有parent，他就是老大.
-			ContextUtil.getContext();
-			MyConstant.tasks.addAll(taskService.selectTaskByState(1));//把所有未完成的任务加入
-			RabbitMq mq = new RabbitMq(MyConstant.EXCHANGE_TASK_NAME);
-			while(true){
-				InitThread thread = new InitThread(mq, taskService, videoService);
-				thread.start();
-				try {
-					Thread.sleep(10*1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
+//			MyConstant.tasks.addAll(taskService.selectTaskByState(1));//把所有未完成的任务加入
+//			RabbitMq mq = new RabbitMq(MyConstant.EXCHANGE_TASK_NAME);
+//			while(true){
+//				InitThread thread = new InitThread(mq, taskService, videoService);
+//				thread.start();
+//				try {
+//					Thread.sleep(10*1000);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//			}
 		}
 	}
 

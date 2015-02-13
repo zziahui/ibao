@@ -2,6 +2,7 @@ package com.ibao.service.base;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Query;
 
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ibao.base.util.MyConstant;
+import com.ibao.base.util.VideoUtil;
 import com.ibao.model.Account;
+import com.ibao.model.InTask;
 import com.ibao.model.Task;
 import com.ibao.model.TaskDetail;
+import com.ibao.model.Video;
 
 @Service
 @Transactional(propagation=Propagation.NOT_SUPPORTED)
@@ -24,6 +27,12 @@ public class TaskService extends BasicService<Task>{
 	
 	@Autowired
 	private TaskDetailService taskDetailService;
+	
+	@Autowired
+	private VideoService videoService;
+	
+	@Autowired
+	private InTaskService inTaskService;
 	
 	public TaskService() {
 		setClazz(Task.class);
@@ -61,7 +70,6 @@ public class TaskService extends BasicService<Task>{
 			td.setLocked(total);
 			//td.setAddTime(new Date());
 			taskDetailService.create(td);
-			MyConstant.tasks.add(task);
 			return true;
 		}catch(Exception e){
 			return false;

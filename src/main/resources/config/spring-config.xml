@@ -32,6 +32,6 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />		
 	</bean>
 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
-	<bean class="com.ibao.task.InstantiationTracingBeanPostProcessor"/>
+	<!-- <bean class="com.ibao.task.InstantiationTracingBeanPostProcessor"/> -->
 	    
 </beans>

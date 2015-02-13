@@ -124,6 +124,27 @@
 		                        <label>结束数量</label>
 		                        <input name="end" class="form-control" placeholder="请输入正确的数字" disabled="">
 		                    </div>
+		                    <div class="form-group col-md-12">
+		                    	<label>目标服务器</label>
+				           		<div class="radio">
+				                    <label>
+				                        <input type="radio" name="server" value="server1" checked="">
+				                      	  主服务器—(当前有4个任务在执行, 有4个任务在排队)
+				                    </label>
+				                </div>
+				                <div class="radio">
+				                    <label>
+				                        <input type="radio" name="server" value="server2" checked="">
+				                        	服务器2—(暂无任务在执行)
+				                    </label>
+				                </div>
+				                <div class="radio">
+				                    <label>
+				                        <input type="radio" name="server" value="server3" checked="">
+				                        	服务器3-(暂无任务在执行);
+				                    </label>
+				                </div>
+				            </div>
 		                    <br>
 			                <a id="submit" class="btn btn-primary" style="margin-left:15px;" >添加业务类型</a>
 			                <a id="toCheck" data-toggle="modal" class="btn btn-info" style="margin-left:15px;">检测视频信息</a>
@@ -274,7 +295,7 @@ $(".btn-primary").click(function(e){
 	var begin = $("input[name='begin']").val();
 	var end = $("input[name='end']").val();
 	var total= $("input[name='total']").val();
-	
+	var server = $("input[name='server']").val();
 	var urlP = new RegExp("^((https|http|ftp|rtsp|mms)://)?[a-z0-9A-Z]{3}\.[a-z0-9A-Z][a-z0-9A-Z]{0,61}"
 			+"?[a-z0-9A-Z]\.html|htm|shtml|jsp|asp|php|com|net|cn|cc (:s[0-9]{1-4})?/$");
 	if(!urlP.test(url)){
@@ -323,7 +344,8 @@ $(".btn-primary").click(function(e){
 			begin: begin,
 			end: end,
 			code: code,
-			url: url
+			url: url,
+			server: server
 		},
 		success: function(data){
 			console.log(data);
